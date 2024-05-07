@@ -26,8 +26,10 @@ class_name = "jwst-ceers-v0-5-aggregated-class-singlechoicequestionsonly.csv"
 cat_dir = "/scratch/ydong/cat"
 cat_name = "CEERS_DR05_adversarial_asinh_4filters_1122_4class_ensemble_v02_stellar_params_morphflag_delta_10points_DenseBasis_galfit_CLASS_STAR_v052_bug.csv"
 
+FILTER = 444
+
 # directory for cutout images
-image_dir = '/scratch/ydong/stamps/demo_F200W'
+image_dir = f'/scratch/ydong/stamps/demo_F{FILTER}W'
 file_loc = [os.path.join(image_dir,path) for path in os.listdir(image_dir)]
 ids = np.array([int(re.findall(r'\d+',path)[1]) for path in os.listdir(image_dir)])
 
@@ -48,6 +50,8 @@ cat_ra = np.round(cat['RA_1'].values,6)
 cat_dec = np.round(cat['DEC_1'].values,6)
 cla_ra = np.round(cla['RA'].values,6)
 cla_dec = np.round(cla['Dec'].values,6)
+
+print(cat)
 
 c = SkyCoord(ra=cla_ra*u.degree, dec=cla_dec*u.degree)
 
@@ -128,11 +132,6 @@ match_catalog.columns = [col[:-7] for col in match_catalog.columns]
 match_catalog['id_str'] = ids[idx[mask]]
 match_catalog['file_loc'] = [file_loc[k] for k in idx[mask]]
 
-# match_catalog.to_csv("bot/match_catalog_F200W.csv")
-
-# for col in cols:
-#     print(col)
-
 
 radius = cla['flux_rad_0p50'].values
 pointing = cla['which_nircam'].values.astype(int)
@@ -165,7 +164,7 @@ added = 0
 for i in range(N):
     if mask[i] == False:
         n = pointing[i]
-        pointing_name = "hlsp_ceers_jwst_nircam_nircam%i_f200w_dr0.5_i2d.fits"%n
+        pointing_name = "hlsp_ceers_jwst_nircam_nircam%i_f%iw_dr0.5_i2d.fits"%(n, FILTER)
         with fits.open(os.path.join(raw_img_dir,pointing_name)) as hdul:
             # hdul.info()
             hdr = hdul[1].header
@@ -176,7 +175,7 @@ for i in range(N):
             pixels = w.wcs_world2pix([[cla_ra[i],cla_dec[i]]],0)
             pix_size = 0.031
             pix = pixels[0]
-            print(pix)
+            # print(pix)
 
             size = 212*np.maximum(0.04*radius[i],0.1)
             up = int(pix[0]+size)
@@ -192,16 +191,16 @@ for i in range(N):
 
                     image = array2img(resized_cut,clipped_percent=1.)
 
-                    image.save('/scratch/ydong/stamps/demo_F200W_added/F200W_%i_a.jpg'%i)
+                    image.save(f'/scratch/ydong/stamps/demo_F{FILTER}W_added/F{FILTER}W_{i}_a.jpg')
 
                     new_record = cla.loc[[i], gz_counts]
                     new_record.columns = [col[:-7] for col in new_record.columns]
                     new_record['id_str'] = 20000+i
-                    new_record['file_loc'] = '/scratch/ydong/stamps/demo_F200W_added/F200W_%i_a.jpg'%i
+                    new_record['file_loc'] = f'/scratch/ydong/stamps/demo_F{FILTER}W_added/F{FILTER}W_{i}_a.jpg'
 
                     match_catalog = pd.concat([match_catalog,new_record],ignore_index=True)
                     added += 1
 
 # save the matched catalog
-match_catalog.to_csv("bot/match_catalog_F200W.csv")
+match_catalog.to_csv(f"bot/match_catalog_F{FILTER}W.csv")
 print(f"Successfully matched {np.sum(mask)}, additionally cut out {added}")

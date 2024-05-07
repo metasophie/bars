@@ -9,11 +9,8 @@ import re
 import numpy as np
 import pandas as pd
 import albumentations as A
-import sys
 
-sys.path.append('/scratch/ydong')
-
-from bars.bot.To3d import To3d
+from bot.To3d import To3d
 from zoobot.pytorch.training import representations
 from zoobot.pytorch.estimators import define_model
 from zoobot.pytorch.predictions import predict_on_catalog

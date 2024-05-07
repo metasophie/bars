@@ -32,7 +32,7 @@ def zero_pix_fraction(img):
 # directory for raw CEERS images
 img_dir = "/scratch/ydong/images"
 
-FILTER = 200
+FILTER = 444
 
 N_POINTINGS = 10
 POINTING1 = [1,2,3,6]

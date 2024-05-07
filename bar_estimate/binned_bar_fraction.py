@@ -22,7 +22,7 @@ bins_M = [7., 8. ,9., 10., 11., 12.]
 N_VOLS = 100
 N_RUNS = 100
 
-result = pd.read_csv(f"bar_estimate/F{200}W_sampling.csv")
+result = pd.read_csv(f"bar_estimate/F{FILTER}W_sampling.csv")
 
 feature_count = result['feature_count'].values
 edgeon_count = result['edgeon_count'].values
@@ -76,7 +76,7 @@ plt.xlabel(r"$z$")
 plt.ylabel("Bar fraction")
 plt.ylim((0, 0.5))
 plt.legend(loc='upper left')
-plt.savefig('bar_estimate/f_bar_z_p_feature.png')
+plt.savefig(f'bar_estimate/F{FILTER}W_pred/f_bar_z_p_feature_F{FILTER}W.png')
 
 
 
@@ -118,7 +118,7 @@ plt.xlabel(r"$z$")
 plt.ylabel("Bar fraction")
 plt.ylim((0, 0.5))
 plt.legend(loc='upper left')
-plt.savefig('bar_estimate/f_bar_z_p_bar.png')
+plt.savefig(f'bar_estimate/F{FILTER}W_pred/f_bar_z_p_bar_F{FILTER}W.png')
 
 
 
@@ -158,7 +158,7 @@ plt.xlabel(r"$\log{M_*/M_\odot}$")
 plt.ylabel("Bar fraction")
 plt.ylim((0, 0.5))
 plt.legend(loc='upper left')
-plt.savefig('bar_estimate/f_bar_M_p_feature.png')
+plt.savefig(f'bar_estimate/F{FILTER}W_pred/f_bar_M_p_feature_F{FILTER}W.png')
 
 
 
@@ -198,4 +198,4 @@ plt.xlabel(r"$\log{M_*/M_\odot}$")
 plt.ylabel("Bar fraction")
 plt.ylim((0, 0.5))
 plt.legend(loc='upper left')
-plt.savefig('bar_estimate/f_bar_M_p_bar.png')
+plt.savefig(f'bar_estimate/F{FILTER}W_pred/f_bar_M_p_bar_F{FILTER}W.png')

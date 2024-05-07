@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 import re
 
-FILTER = 200
+FILTER = 444
 
 image_dir = f'/scratch/ydong/stamps/demo_F{FILTER}W'
 file_loc = [os.path.join(image_dir,path) for path in os.listdir(image_dir)]
@@ -36,7 +36,7 @@ pred_cat = cat
 pred_cat['id_str'] = ids
 pred_cat['file_loc'] = file_loc
 
-checkpoint_loc = f'results/finetune_tree_result/F{FILTER}W/checkpoints/97-v1.ckpt'
+checkpoint_loc = f'results/finetune_tree_result/F{FILTER}W/checkpoints/96.ckpt'
 # checkpoint_loc = 'checkpoints/effnetb0_greyscale_224px.ckpt'
 
 save_dir = f'bar_estimate/F{FILTER}W_pred'

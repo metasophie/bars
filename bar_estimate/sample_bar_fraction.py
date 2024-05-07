@@ -37,7 +37,8 @@ def array2str(array):
     return string
 
 
-FILTER = 200
+FILTER = 444
+
 N_RUNS = 100
 N_VOLS = 100
 
@@ -56,8 +57,8 @@ z50 = cat['zfit_50'].values
 z16 = cat['zfit_16'].values
 z84 = cat['zfit_84'].values
 
-q = cat['F200W_Q'].values
-q_err = cat['F200W_Q_ERR'].values
+q = cat[f'F{FILTER}W_Q'].values
+q_err = cat[f'F{FILTER}W_Q_ERR'].values
 
 m50 = cat['logM_50'].values
 m16 = cat['logM_16'].values

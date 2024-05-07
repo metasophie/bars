@@ -22,7 +22,7 @@ from bot.To3d import To3d
 
 # os.environ['CUDA_VISIBLE_DEVICES']="1"
 
-FILTER = 200
+FILTER = 444
 
 
 logging.basicConfig(level=logging.INFO)
@@ -93,7 +93,7 @@ predict_on_catalog.predict(
     model,
     n_samples=5,
     label_cols=schema.label_cols,
-    save_loc=os.path.join(save_dir, f'demo_tree_predictions_F{FILTER}W_1.csv'),
+    save_loc=os.path.join(save_dir, f'demo_tree_predictions_F{FILTER}W_0.csv'),
     datamodule_kwargs={
         'custom_albumentation_transform':A.Compose([
             A.Lambda(image=To3d(),always_apply=True),
