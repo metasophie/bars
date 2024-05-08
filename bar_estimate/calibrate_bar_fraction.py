@@ -58,7 +58,7 @@ for k in range(4):
                 break
 
 bar_fraction = num_barred_disks / num_disks
-err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS + np.var(bar_fraction, axis=2))
+err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS**2 + np.var(bar_fraction, axis=2))
 
 bin_centers = [(bins_z[i] + bins_z[i+1]) / 2 for i in range(N_BINS_z)]
 
@@ -110,7 +110,7 @@ for k in range(4):
                 break
 
 bar_fraction = num_barred_disks / num_disks
-err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS + np.var(bar_fraction, axis=2))
+err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS**2 + np.var(bar_fraction, axis=2))
 
 bin_centers = [(bins_M[i] + bins_M[i+1]) / 2 for i in range(N_BINS_M)]
 
@@ -165,7 +165,7 @@ for i in range(len(result)):
             break
 
 bar_fraction = num_barred_disks / num_disks
-err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=1)/N_RUNS + np.var(bar_fraction, axis=1))
+err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=1)/N_RUNS**2 + np.var(bar_fraction, axis=1))
 
 bin_centers = [(bins_mag[i] + bins_mag[i+1]) / 2 for i in range(N_BINS_mag)]
 

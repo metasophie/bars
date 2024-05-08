@@ -11,7 +11,7 @@ def str2array(string):
     array = np.array([int(num) for num in numbers_str])
     return array
 
-FILTER = 200
+FILTER = 444
 
 N_BINS_z = 5
 bins_z = [0, 1, 2, 3, 4, 5]
@@ -60,7 +60,7 @@ for k in range(3):
                 break
 
 bar_fraction = num_barred_disks / num_disks
-err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS + np.var(bar_fraction, axis=2))
+err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS**2 + np.var(bar_fraction, axis=2))
 
 bin_centers = [(bins_z[i] + bins_z[i+1]) / 2 for i in range(N_BINS_z)]
 
@@ -102,7 +102,7 @@ for k in range(3):
                 break
 
 bar_fraction = num_barred_disks / num_disks
-err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS + np.var(bar_fraction, axis=2))
+err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS**2 + np.var(bar_fraction, axis=2))
 
 bin_centers = [(bins_z[i] + bins_z[i+1]) / 2 for i in range(N_BINS_z)]
 
@@ -144,7 +144,7 @@ for k in range(3):
                 break
 
 bar_fraction = num_barred_disks / num_disks
-err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS + np.var(bar_fraction, axis=2))
+err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS**2 + np.var(bar_fraction, axis=2))
 
 bin_centers = [(bins_M[i] + bins_M[i+1]) / 2 for i in range(N_BINS_M)]
 
@@ -184,7 +184,7 @@ for k in range(3):
                 break
 
 bar_fraction = num_barred_disks / num_disks
-err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS + np.var(bar_fraction, axis=2))
+err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS**2 + np.var(bar_fraction, axis=2))
 
 bin_centers = [(bins_M[i] + bins_M[i+1]) / 2 for i in range(N_BINS_M)]
 
