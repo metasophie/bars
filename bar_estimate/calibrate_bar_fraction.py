@@ -126,11 +126,13 @@ plt.savefig(f'bar_estimate/f_bar_M_all_filters.png')
 
 
 N_BINS_mag = 5
-bins_mag = [18, 20, 22, 24, 26, 28]
+bins_mag = [20, 21, 22, 23, 24, 25]
 
 
 result = pd.read_csv(f"bar_estimate/F200W_sampling.csv")
-result = result[result['zfit_50'] <= 1.]
+result = result[(result['zfit_50'] <= 1.) & (result['logM_50'] > 9.) & (result['logM_50'] < 10.)]
+# result = result[(result['zfit_50'] <= 1.) & (result['logM_50'] > 10.) & (result['logM_50'] < 11.)]
+
 
 feature_count = result['feature_count'].values
 edgeon_count = result['edgeon_count'].values
@@ -159,14 +161,14 @@ for k in range(3):
                 bar = str2array(bar_count[i])
 
                 # is_disk = (feature >= 0.3*N_VOLS) & (edgeon <= 0.5*feature) & (q[i] >= 0.5)
-                is_disk = (feature >= 0.3*N_VOLS) & (feature-edgeon >= 15) & (q[i] >= 0.5)
+                is_disk = (feature >= 0.3*N_VOLS) & (feature-edgeon >= 10) & (q[i] >= 0.5)
                 num_disks[k,j,:] += is_disk.astype(int)
 
                 is_barred_disk = is_disk & (bar >= bar_thresholds[k]*(feature-edgeon))
                 num_barred_disks[k,j,:] += is_barred_disk.astype(int)
             
                 break
-
+print(num_disks, flush=True)
 bar_fraction = num_barred_disks / num_disks
 err = np.sqrt(np.sum(bar_fraction*(1-bar_fraction)/num_disks, axis=2)/N_RUNS**2 + np.var(bar_fraction, axis=2))
 
