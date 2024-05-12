@@ -17,7 +17,7 @@ def generalized_beta_binomial_pmf(x, n:int, a, b):
 
     return gamma(n+1)/gamma(x+1)/gamma(n-x+1)*beta(x+a,n-x+b)/beta(a,b)
 
-FILTER = 150
+FILTER = 444
 
 # load catalog
 cat_dir = "/scratch/ydong/cat"
