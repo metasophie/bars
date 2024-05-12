@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO)
 checkpoint_loc = 'checkpoints/effnetb0_greyscale_224px.ckpt'
 
 # directory for saving the finetuned model checkpoint
-save_dir = f'results/finetune_tree_result/F{FILTER}W'
+save_dir = f'results/finetune_tree_result_1block/F{FILTER}W'
 
 # self-defined GZ CEERS question tree schema
 schema = gz_ceers_schema
@@ -79,7 +79,8 @@ datamodule = GalaxyDataModule(
 
 model = finetune.FinetuneableZoobotTree(
     checkpoint_loc=checkpoint_loc,
-    schema=schema
+    schema=schema,
+    n_blocks=1
 )
 
 # print(CUDAAccelerator.is_available())

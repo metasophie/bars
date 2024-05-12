@@ -11,9 +11,9 @@ import pandas as pd
 import albumentations as A
 import sys
 
-sys.path.append('/scratch/ydong')
+# sys.path.append('/scratch/ydong')
 
-from bars.bot.To3d import To3d
+from bot.To3d import To3d
 from zoobot.pytorch.training import representations
 from zoobot.pytorch.estimators import define_model
 from zoobot.pytorch.predictions import predict_on_catalog
@@ -24,10 +24,10 @@ from zoobot.shared import load_predictions
 logging.basicConfig(level=logging.INFO)
 
 # checkpoint downloaded from Dropbox
-checkpoint_loc = 'results/finetune_tree_result/checkpoints/97-v1.ckpt'
+checkpoint_loc = 'results/finetune_tree_result_1block/F444W/checkpoints/89.ckpt'
 
 # use my own CEERS demo dataset
-data_dir = '/scratch/ydong/stamps/demo_F200W'
+data_dir = '/scratch/ydong/stamps/demo_F444W'
 images = [os.path.join(data_dir,path) for path in os.listdir(data_dir)]
 labels = np.random.randint(2,size=len(images))
 ids = [int(re.findall(r'\d+',path)[1]) for path in os.listdir(data_dir)]
@@ -50,7 +50,7 @@ encoder = define_model.ZoobotTree.load_from_checkpoint(checkpoint_loc, output_di
 model = representations.ZoobotEncoder(encoder=encoder, pyramid=False)
 
 label_cols = [f'feat_{n}' for n in range(1280)]
-repr_loc = os.path.join(save_dir, 'F200W_representations.hdf5')
+repr_loc = os.path.join(save_dir, 'F444W_representations.hdf5')
 
 accelerator = 'gpu'
 batch_size = 16

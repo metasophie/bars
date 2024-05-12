@@ -17,7 +17,9 @@ from zoobot.shared import load_predictions
 
 time_start = time.time()
 
-repr_loc = 'finetune_repr/repr_results/F200W_representations.hdf5'
+FILTER = 444
+
+repr_loc = 'finetune_repr/repr_results/F444W_representations.hdf5'
 repr_df = load_predictions.single_forward_pass_hdf5s_to_df(repr_loc)
 feat_cols = [f'feat_{n}' for n in range(1280)]
 repr = repr_df[feat_cols].values
@@ -27,10 +29,10 @@ cat_dir = "/scratch/ydong/cat"
 cat_name = "CEERS_DR05_adversarial_asinh_4filters_1122_4class_ensemble_v02_stellar_params_morphflag_delta_10points_DenseBasis_galfit_CLASS_STAR_v052_bug.csv"
 
 cat = pd.read_csv(os.path.join(cat_dir,cat_name))
-mag = cat['F200W_MAG'].values
-sersic = cat['F200W_N'].values
+mag = cat[f'F{FILTER}W_MAG'].values
+sersic = cat[f'F{FILTER}W_N'].values
 
-col_list = ['RA_1','logSFRinst_50','F200W_Q','F200W_PA','F200W_RE','F200W_N']
+col_list = ['RA_1','logSFRinst_50',f'F{FILTER}W_Q',f'F{FILTER}W_PA',f'F{FILTER}W_RE',f'F{FILTER}W_N']
 morph_cols = ['sph_f150w_mean','disk_f150w_mean','irr_f150w_mean','bd_f150w_mean']
 # morph = np.array([['sph','disk','irr','bd'][morphclass] for morphclass in np.argmax(cat[morph_cols].values,axis=1)])
 
@@ -58,8 +60,8 @@ plt.scatter(dim1,dim2,c=np.log(sersic[id_str]),cmap='RdBu')
 plt.xlabel('UMAP 1')
 plt.ylabel('UMAP 2')
 plt.colorbar()
-plt.title(f"UMAP F200W color coded by log F200W_N")
-plt.savefig(f'finetune_repr/repr_results/F200W_logF200W_N_coded_new.png')
+plt.title(f"UMAP F{FILTER}W color coded by log F{FILTER}W_N")
+plt.savefig(f'finetune_repr/repr_results/F{FILTER}W_logF{FILTER}W_N_coded.png')
 
 size = 1.   # size of one single thumbnail
 min1 = dim1.min()
@@ -84,7 +86,7 @@ for i in range(n1):
         if np.any(in_region):
             all_local_ids = id_str[in_region]
             tn_id = all_local_ids[np.argmin(mag[all_local_ids])]
-            tn_loc = f'/scratch/ydong/stamps/demo_F200W/F200W_{tn_id}.jpg'
+            tn_loc = f'/scratch/ydong/stamps/demo_F{FILTER}W/F{FILTER}W_{tn_id}.jpg'
             tn = np.array(Image.open(tn_loc))
             plt.imshow(tn,extent=(grid1[i],grid1[i+1],grid2[j],grid2[j+1]),cmap='gray')
             
@@ -93,7 +95,7 @@ plt.title('UMAP thumbnails')
 plt.xlabel('UMAP 1')
 plt.ylabel('UMAP 2')
 plt.legend()
-plt.savefig('finetune_repr/repr_results/F200W_thumbnails_new.png')
+plt.savefig(f'finetune_repr/repr_results/F{FILTER}W_thumbnails.png')
 
 
 time_end = time.time() 
