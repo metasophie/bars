@@ -7,6 +7,7 @@ import pandas as pd
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 cat_dir = "/scratch/ydong/cat"
 cat_name = "CEERS_DR05_adversarial_asinh_4filters_1122_4class_ensemble_v02_stellar_params_morphflag_delta_10points_DenseBasis_galfit_CLASS_STAR_v052_bug.csv"
@@ -23,12 +24,19 @@ col_names = ['RA_1','DEC_1']
 cols = cat.columns
 
 id = pd.read_csv("bar_estimate/F200W_sampling.csv")['id'].values
-mag = cat['F200W_RE'].values[id]
-plt.hist(mag, bins=[0., 0.2, 0.4, 0.6, 0.8])
-plt.savefig('test_re_F200W.png')
 
-for col in cols:
-    print(col)
+M = cat['logM_50'].values[id]
+z = cat['zfit_50'].values[id]
+
+g = sns.jointplot(x=z, y=M, kind='kde', joint_kws={'levels':8})
+g.set_axis_labels(r'$z$', r'$\log{M_*/M_\odot}$', fontsize=12)
+g.ax_joint.set_xlim([0, 6])
+g.ax_joint.set_ylim([6, 12])
+plt.tight_layout()
+plt.savefig('joint.jpg')
+
+# for col in cols:
+#     print(col)
 
 # print(cla[['pixrad','radius_select','flux_rad_0p50','which_nircam','nircam_id']].values)
 # print(np.unique(cla['which_nircam'].values))
